@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GoogleMobileAds.Api;
+using System;
 
 public class ADManager : MonoBehaviour
 {
@@ -103,5 +104,69 @@ public class ADManager : MonoBehaviour
         {
             rewardVideoAd.Show();
         }
+    }
+
+    //Handle Events
+    public void HandleOnAdLoaded(object sender, EventArgs args)
+    {
+        //Ad is loaded show it
+        Display_Banner();
+    }
+
+    public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        //It has failed to laod, load it again
+        RequestBanner();
+    }
+
+    public void HandleOnAdOpened(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleAdOpened event received");
+    }
+
+    public void HandleOnAdClosed(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleAdClosed event received");
+    }
+
+    public void HandleOnAdLeavingApplication(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleAdLeavingApplication event received");
+    }
+
+    void HandleBannerADEvents(bool subscribe)
+    {
+        if (subscribe)
+        {
+            // Called when an ad request has successfully loaded.
+            bannerAD.OnAdLoaded += HandleOnAdLoaded;
+            // Called when an ad request failed to load.
+            bannerAD.OnAdFailedToLoad += HandleOnAdFailedToLoad;
+            // Called when an ad is clicked.
+            bannerAD.OnAdOpening += HandleOnAdOpened;
+            // Called when the user returned from the app after an ad click.
+            bannerAD.OnAdClosed += HandleOnAdClosed;
+            // Called when the ad click caused the user to leave the application.
+            bannerAD.OnAdLeavingApplication += HandleOnAdLeavingApplication;
+        }
+        else
+        {
+            // Called when an ad request has successfully loaded.
+            bannerAD.OnAdLoaded -= HandleOnAdLoaded;
+            // Called when an ad request failed to load.
+            bannerAD.OnAdFailedToLoad -= HandleOnAdFailedToLoad;
+            // Called when an ad is clicked.
+            bannerAD.OnAdOpening -= HandleOnAdOpened;
+            // Called when the user returned from the app after an ad click.
+            bannerAD.OnAdClosed -= HandleOnAdClosed;
+            // Called when the ad click caused the user to leave the application.
+            bannerAD.OnAdLeavingApplication -= HandleOnAdLeavingApplication;
+        }
+
+    }
+
+    void OnEnable()
+    {
+
     }
 }
