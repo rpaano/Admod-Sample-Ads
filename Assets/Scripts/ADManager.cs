@@ -17,7 +17,7 @@ public class ADManager : MonoBehaviour
     void Start()
     {
         //For publish apps
-        //MobileAds.Initialize(APP_ID);
+        MobileAds.Initialize(APP_ID);
 
         RequestBanner();
         RequestInterstitial();
