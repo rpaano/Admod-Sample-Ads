@@ -17,6 +17,10 @@ public class ADManager : MonoBehaviour
     {
         //For publish apps
         //MobileAds.Initialize(APP_ID);
+
+        RequestBanner();
+        RequestInterstitial();
+        RequestVideoAd();
     }
 
     void RequestBanner()
@@ -78,5 +82,26 @@ public class ADManager : MonoBehaviour
         //AdRequest adRequest = new AdRequest.Builder().Build();
 
         rewardVideoAd.LoadAd(adRequest, video_ID);
+    }
+
+    public void Display_Banner()
+    {
+        bannerAD.Show();
+    }
+
+    public void DisplayInterstitial()
+    {
+        if (interstitialAd.IsLoaded())
+        {
+            interstitialAd.Show();
+        }
+    }
+
+    public void Diplay_Reward_Video()
+    {
+        if (rewardVideoAd.IsLoaded())
+        {
+            rewardVideoAd.Show();
+        }
     }
 }
